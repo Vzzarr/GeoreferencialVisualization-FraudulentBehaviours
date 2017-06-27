@@ -11,6 +11,9 @@
   "dependencies": {
     "apoc": "^2.1.6",
     "express": "^4.15.3",
-    "leaflet-geosearch": "^2.4.0"
+    "geocoder": "^0.2.3",
+    "google-geocoder": "^0.2.1",
+    "leaflet-geosearch": "^2.4.0",
+    "node-open-geocoder": "^2.0.0"
   }
 }
