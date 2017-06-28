@@ -6,50 +6,58 @@ var app = express();
 var apoc = require('apoc')
 
 var geocoder = require('google-geocoder');
-var fs = require('fs');
 
 var geo = geocoder({
     key: 'AIzaSyAFu39xnKbHzitIoTyviJ5negJITHiuLek'
 });
 
 var apoc = require('apoc')
-var query = apoc.query('MATCH (c)-[:HA_RESIDENZA_O_SEDE_IN]->(m) RETURN m.via, m.comune, m.cap, c.cf limit 120')
+var query = apoc.query('MATCH (c:Cliente)-[:HA_RESIDENZA_O_SEDE_IN]->(m:Indirizzo) WHERE m.comune IS NOT NULL AND c.cf IS NOT NULL  RETURN  m.via, m.comune, m.cap, c.cf limit 5')
+var nRow = ''
 
-//var streets = []
-console.log(query.statements) // array of statements in this query
+
 query.exec().then(function(result) {
-    text = '';
-    for (i = 0; i < result[0]['data'].length; i++) {
-        //address.push(result[0]['data'][i]['row'])
-
-        street = result[0]['data'][i]['row'][0].split(',')
-        if(street[1].match('[a-zA-Z]+').length==0)
-            queryStreet = result[0]['data'][i]['row'][1] + ', ' + result[0]['data'][i]['row'][2] + ', IT'
+    console.log('DENTRO', result[0].data.length)
+    var fs = require('fs');
+    var queryStreet = ''
+    var nRow = ''
+    for (i=0 ; i < result[0].data.length; i++) {
+        var street = result[0]['data'][i]['row'][0].split(',')
+        if(street[0].match(/[a-zA-Z]+/g) != null)
+            queryStreet = result[0]['data'][i]['row'][0]+ ', ' + result[0]['data'][i]['row'][1] + ', ' + result[0]['data'][i]['row'][2] + ', IT'
+                //+result[0]['data'][i]['row'][3]+'\n'
         else
-            queryStreet = street[1] + ' ' + street[0] + ', ' + result[0]['data'][i]['row'][1] + ', ' + result[0]['data'][i]['row'][2] + ', IT'
-        utente = result[0]['data'][i]['row'][3]
+            queryStreet = result[0]['data'][i]['row'][1] + ', ' + result[0]['data'][i]['row'][2] + ', IT'
+                //+result[0]['data'][i]['row'][3]+'\n'
 
-        if (i % 10 == 0) {
-            setTimeout(function() {
-                console.log('wait')
-            }, 1000)
-        }
 
-        createAfile(queryStreet)
+        geo.find(queryStreet, nRow, function (err, res) {
+                new setValues(res[0].location.lat + ',' + res[0].location.lng+'\n')
+        })
+
     }
-    //console.log(text)
+
+    var setValues =  function (value) {
+        console.log(value)
+        nRow = value
+    }
+
+    console.log('PROOVA', nRow)
+    fs.appendFile("/Users/blackmamba/Desktop/fraudDetection.txt", queryStreet, function(err) {
+        if (err) {
+            return console.log(err);
+        }
+    });
+
 }, function(fail) {
     console.log(fail)
 })
 
-function createAfile(queryStreet) {
-    console.log(queryStreet)
-    geo.find(queryStreet, function(err, res) {
-
-        fs.appendFile("/Users/blackmamba/Desktop/fraudDetection.csv", res[0].location.lat + ',' + res[0].location.lng + ',' + utente + '\n', function(err) {
-            if (err) {
-                return console.log(err);
-            }
-        });
-    })
-}
+/*console.log(queryStreet)
+geo.find(queryStreet, function(err, res) {
+    fs.appendFile("/Users/blackmamba/Desktop/fraudDetection.txt", res.length+'  '+utente+'\n', function(err) {
+        if (err) {
+            return console.log(err);
+        }
+    });
+})*/
