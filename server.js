@@ -15,12 +15,12 @@ app.get('/', function (req, res) {
 app.get('/runServersNannocubes', function (req, res) {
 
     setTimeout(function () {
-        res.send('http://localhost:8000/#config_fraudDetection');
+        res.send('http://localhost:8000/#'+req.query.id);
     },100)
 
     console.log(req.query.id)
     supportMethods.avviaServerPython()
-    supportMethods.avviaServerQuery('datasetCompleto')
+    supportMethods.avviaServerQuery(req.query.id)
 })
 
 app.get('/endProcess', function (req, res){
