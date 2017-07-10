@@ -1,0 +1,15 @@
+# OS Junk
+.trash
+.DS_Store
+Thumbs.db
+
+# Build Junk
+*.log
+
+# Marked Private
+.private
+/private/
+
+# NPM and builds
+/node_modules/
+/build/
