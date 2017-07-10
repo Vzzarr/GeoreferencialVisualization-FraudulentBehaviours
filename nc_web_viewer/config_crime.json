@@ -1,0 +1,40 @@
+{
+  "title": "DataSet_lat_lng.csv", 
+  "url": "http://localhost:29512", 
+  "latlonbox": {
+    "max": {
+      "location": [
+        53.19780658276437, 
+        33.31878662109375
+      ]
+    }, 
+    "min": {
+      "location": [
+        35.33977430038645, 
+        -3.5760498046875
+      ]
+    }
+  }, 
+  "tilesurl": "http://{s}.tile.osm.org/{z}/{x}/{y}.png", 
+  "heatmapmaxlevel": 25, 
+  "div": {
+    "info": {
+      "opacity": 0.9, 
+      "padding": 0, 
+      "z-index": 1, 
+      "right": "1ch", 
+      "color": "white", 
+      "position": "absolute", 
+      "top": "1em", 
+      "height": "1em"
+    }, 
+    "location": {
+      "padding": 0, 
+      "width": "100%", 
+      "z-index": 0, 
+      "float": "left", 
+      "margin": 0, 
+      "height": "100%"
+    }
+  }
+}

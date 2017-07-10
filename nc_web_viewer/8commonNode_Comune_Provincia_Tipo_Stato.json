@@ -1,0 +1,40 @@
+{
+  "title": "8commonNode_Comune_Provincia_Tipo_Stato.csv", 
+  "url": "http://localhost:29512", 
+  "latlonbox": {
+    "max": {
+      "location": [
+        50.102964487233535, 
+        18.17413330078125
+      ]
+    }, 
+    "min": {
+      "location": [
+        36.89280138293984, 
+        1.83746337890625
+      ]
+    }
+  }, 
+  "tilesurl": "http://{s}.tile.osm.org/{z}/{x}/{y}.png", 
+  "heatmapmaxlevel": 25, 
+  "div": {
+    "info": {
+      "opacity": 0.9, 
+      "padding": 0, 
+      "z-index": 1, 
+      "right": "1ch", 
+      "color": "white", 
+      "position": "absolute", 
+      "top": "1em", 
+      "height": "1em"
+    }, 
+    "location": {
+      "padding": 0, 
+      "width": "100%", 
+      "z-index": 0, 
+      "float": "left", 
+      "margin": 0, 
+      "height": "100%"
+    }
+  }
+}
