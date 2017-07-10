@@ -1,17 +1,17 @@
 {
-  "title": "8commonNode_Comune_Provincia_Tipo_Stato.csv", 
+  "title": "12cyclic_sameCF.csv", 
   "url": "http://localhost:29512", 
   "latlonbox": {
     "max": {
       "location": [
-        50.10296448723353, 
-        18.17413330078125
+        46.8000594467873, 
+        18.2977294921875
       ]
     }, 
     "min": {
       "location": [
-        36.89280138293983, 
-        1.83746337890625
+        36.78729146682001, 
+        6.75384521484375
       ]
     }
   }, 

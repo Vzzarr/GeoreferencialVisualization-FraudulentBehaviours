@@ -1,17 +1,17 @@
 {
-  "title": "8commonNode_Comune_Provincia_Tipo_Stato.csv", 
+  "title": "7sameSurname_sameStreet.csv", 
   "url": "http://localhost:29512", 
   "latlonbox": {
     "max": {
       "location": [
-        50.10296448723353, 
-        18.17413330078125
+        44.58264281958419, 
+        13.14239501953125
       ]
     }, 
     "min": {
       "location": [
-        36.89280138293983, 
-        1.83746337890625
+        41.828642001860544, 
+        7.46795654296875
       ]
     }
   }, 
