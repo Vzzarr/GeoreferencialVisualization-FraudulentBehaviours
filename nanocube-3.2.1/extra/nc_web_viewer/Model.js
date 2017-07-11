@@ -283,6 +283,64 @@ Model.prototype.createMap = function(spvar,cm){
         log: this.options.logcolormap
     });
 
+    var selectedUsers = L.control.custom({
+        position: 'topright',
+        content : `<div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-right" style="display:none;right:0;" id="rightMenu">
+          <button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">Close &times;</button>
+
+        </div>
+         
+        <div zclass="w3-main" id="main">
+         
+        <div class="w3-teal">
+           <button class="w3-button w3-teal w3-xlarge w3-right" onclick="openRightMenu()">&#9776;</button>
+
+        </div>
+         
+        </div>`,
+        classes : 'btn-group-vertical btn-group-sm',
+        style   :
+        {
+            margin: '0px',
+            top: '110px',
+            padding: '0px 0 0 0',
+            cursor: 'pointer',
+        },
+        datas   :
+        {
+            'foo': 'bar',
+        },
+        events:
+        {
+            click: function(data)
+            {
+                console.log('wrapper div element clicked');
+                console.log(data);
+            },
+            dblclick: function(data)
+            {
+                console.log('wrapper div element dblclicked');
+                console.log(data);
+            },
+            contextmenu: function(data)
+            {
+                console.log('wrapper div element contextmenu');
+                console.log(data);
+            },
+        }
+    });
+
+    var that = this;
+    map.on('moveend', function(e){
+        var b = map.getBounds();
+        var level = map.getZoom();
+        var tilelist = boundsToTileList(b,Math.min(level+8, spvar.maxlevel));
+
+        spvar.setCurrentView(tilelist);
+        that.redraw(spvar);
+        that.updateInfo();
+    });
+
     var that = this;
     map.on('moveend', function(e){
         var b = map.getBounds();
@@ -296,6 +354,8 @@ Model.prototype.createMap = function(spvar,cm){
 
     maptile.addTo(map);
     heatmap.addTo(map);
+    selectedUsers.addTo(map);
+
 
     //register panel functions
     this.panelFuncs(maptile,heatmap);
@@ -317,6 +377,25 @@ Model.prototype.nextColor=function(){
     colors.push(c);
     return c;
 };
+
+
+function openRightMenu() {
+    //document.getElementById("user").style.display = "none";
+    document.getElementById("rightMenu").style.display = "block";
+    var cars = ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi"];
+    var text = "";
+    var i;
+    for (i = 0; i < cars.length; i++) {
+        text += "<a class="+"w3-bar-item w3-button"+">"+cars[i] + "</a>";
+    }
+document.getElementById("rightMenu").innerHTML = '<button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">Close &times;</button>' + text;
+}
+
+function closeRightMenu() {
+    //document.getElementById("user").style.display = "block";
+    document.getElementById("rightMenu").style.display = "none";
+}
+
 
 //Add Rectangles and polygons controls
 Model.prototype.addDraw = function(map,spvar){
