@@ -1,17 +1,17 @@
 {
-  "title": "6sameDocument.csv", 
+  "title": "7sameSurname_sameStreet_u.csv", 
   "url": "http://localhost:29512", 
   "latlonbox": {
     "max": {
       "location": [
-        46.3658837048498, 
-        18.08349609375
+        44.58264281958419, 
+        13.14239501953125
       ]
     }, 
     "min": {
       "location": [
-        36.91476428895593, 
-        7.3223876953125
+        41.82864200186054, 
+        7.46795654296875
       ]
     }
   }, 
@@ -35,6 +35,20 @@
       "float": "left", 
       "margin": 0, 
       "height": "100%"
+    }, 
+    "user": {
+      "opacity": 0.8, 
+      "right": "1ch", 
+      "logaxis": false, 
+      "height": "5em", 
+      "width": "45ch", 
+      "z-index": 1, 
+      "displaynumcat": 1, 
+      "margin-left": "15ch", 
+      "position": "absolute", 
+      "alpha_order": true, 
+      "top": "3em", 
+      "background-color": "#555"
     }
   }
 }

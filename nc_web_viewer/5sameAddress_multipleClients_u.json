@@ -1,17 +1,17 @@
 {
-  "title": "3family.csv", 
+  "title": "5sameAddress_multipleClients_u.csv", 
   "url": "http://localhost:29512", 
   "latlonbox": {
     "max": {
       "location": [
-        45.61403741135092, 
-        9.151611328125
+        50.102964487233535, 
+        18.17413330078125
       ]
     }, 
     "min": {
       "location": [
-        45.60635207711833, 
-        9.1461181640625
+        36.89280138293984, 
+        1.83746337890625
       ]
     }
   }, 
@@ -35,6 +35,20 @@
       "float": "left", 
       "margin": 0, 
       "height": "100%"
+    }, 
+    "user": {
+      "opacity": 0.8, 
+      "right": "1ch", 
+      "logaxis": false, 
+      "height": "5em", 
+      "width": "45ch", 
+      "z-index": 1, 
+      "displaynumcat": 1, 
+      "margin-left": "15ch", 
+      "position": "absolute", 
+      "alpha_order": true, 
+      "top": "3em", 
+      "background-color": "#555"
     }
   }
 }

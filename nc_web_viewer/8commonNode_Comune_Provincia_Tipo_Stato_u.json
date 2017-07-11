@@ -1,17 +1,17 @@
 {
-  "title": "12cyclic_sameCF.csv", 
+  "title": "8commonNode_Comune_Provincia_Tipo_Stato_u.csv", 
   "url": "http://localhost:29512", 
   "latlonbox": {
     "max": {
       "location": [
-        46.8000594467873, 
-        18.2977294921875
+        50.102964487233535, 
+        18.17413330078125
       ]
     }, 
     "min": {
       "location": [
-        36.78729146682001, 
-        6.75384521484375
+        36.89280138293984, 
+        1.83746337890625
       ]
     }
   }, 
@@ -35,6 +35,20 @@
       "float": "left", 
       "margin": 0, 
       "height": "100%"
+    }, 
+    "user": {
+      "opacity": 0.8, 
+      "right": "1ch", 
+      "logaxis": false, 
+      "height": "5em", 
+      "width": "45ch", 
+      "z-index": 1, 
+      "displaynumcat": 1, 
+      "margin-left": "15ch", 
+      "position": "absolute", 
+      "alpha_order": true, 
+      "top": "3em", 
+      "background-color": "#555"
     }
   }
 }

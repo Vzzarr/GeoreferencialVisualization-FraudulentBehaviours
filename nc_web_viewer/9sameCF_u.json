@@ -1,17 +1,17 @@
 {
-  "title": "1sameMail_multipleUser.csv", 
+  "title": "9sameCF_u.csv", 
   "url": "http://localhost:29512", 
   "latlonbox": {
     "max": {
       "location": [
-        46.798179251233215, 
-        17.28424072265625
+        45.419660306409874, 
+        11.87896728515625
       ]
     }, 
     "min": {
       "location": [
-        36.92793899776677, 
-        7.35260009765625
+        45.419660306409874, 
+        11.87896728515625
       ]
     }
   }, 
@@ -35,6 +35,20 @@
       "float": "left", 
       "margin": 0, 
       "height": "100%"
+    }, 
+    "user": {
+      "opacity": 0.8, 
+      "right": "1ch", 
+      "logaxis": false, 
+      "height": "5em", 
+      "width": "45ch", 
+      "z-index": 1, 
+      "displaynumcat": 1, 
+      "margin-left": "15ch", 
+      "position": "absolute", 
+      "alpha_order": true, 
+      "top": "3em", 
+      "background-color": "#555"
     }
   }
 }

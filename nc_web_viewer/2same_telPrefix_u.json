@@ -1,17 +1,17 @@
 {
-  "title": "9sameCF.csv", 
+  "title": "2same_telPrefix_u.csv", 
   "url": "http://localhost:29512", 
   "latlonbox": {
     "max": {
       "location": [
-        45.419660306409874, 
-        11.87896728515625
+        46.61737453206076, 
+        18.00933837890625
       ]
     }, 
     "min": {
       "location": [
-        45.419660306409874, 
-        11.87896728515625
+        37.074901868206105, 
+        6.75384521484375
       ]
     }
   }, 
@@ -35,6 +35,20 @@
       "float": "left", 
       "margin": 0, 
       "height": "100%"
+    }, 
+    "user": {
+      "opacity": 0.8, 
+      "right": "1ch", 
+      "logaxis": false, 
+      "height": "5em", 
+      "width": "45ch", 
+      "z-index": 1, 
+      "displaynumcat": 1, 
+      "margin-left": "15ch", 
+      "position": "absolute", 
+      "alpha_order": true, 
+      "top": "3em", 
+      "background-color": "#555"
     }
   }
 }

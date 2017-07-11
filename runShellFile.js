@@ -6,7 +6,7 @@ var child_process = require('child_process'),
 
 process.on('message', function(m) {
 
-    child = child_process.exec('cd && cd nanocube-3.2.1/bin/ && cat ../data/'+m+'.dmp | ../bin/nanocube-leaf -q 29512 -f 10000', function (error, stdout, stderr) {
+    child = child_process.exec('cd $NANOCUBE_SRC/bin/ && cat ../data/'+m+'.dmp | ../bin/nanocube-leaf -q 29512 -f 10000', function (error, stdout, stderr) {
         console.log('stdout: ' + stdout)
         console.log('stderr: ' + stderr)
         if (error !== null) {
