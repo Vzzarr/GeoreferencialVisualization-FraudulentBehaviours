@@ -16,11 +16,13 @@ app.get('/runServersNannocubes', function (req, res) {
 
     setTimeout(function () {
         res.send('http://localhost:8000/#'+req.query.id);
-    },100)
+    },500)
 
     console.log(req.query.id)
-    supportMethods.avviaServerPython()
     supportMethods.avviaServerQuery(req.query.id)
+    setTimeout(function () {
+        supportMethods.avviaServerPython()
+    }, 100)
 })
 
 app.get('/endProcess', function (req, res){
@@ -44,6 +46,9 @@ app.get('/getUsers', function (req, res){
     var data = req.query.data
     var nameFile = data.fileName
     var perimeter = []
+
+    console.log(nameFile)
+
 
     for(var i = 0; i<data.perimeter.length ;i++) {
         var latElng = []
@@ -73,7 +78,8 @@ app.get('/getUsers', function (req, res){
                         usersInsidePerimeter.push(row[2])
                 }
             }
-         res.send(usersInsidePerimeter)
+            console.log(usersInsidePerimeter.length)
+            res.send(usersInsidePerimeter)
         } else {
             console.log(err)
         }
