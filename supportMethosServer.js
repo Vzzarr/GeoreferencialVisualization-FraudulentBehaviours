@@ -1,6 +1,15 @@
 /**
- * Created by blackmamba on 10/07/17.
+ * Created by blackmamba (male) on 10/07/17.
+
+
+ NOTE
+ change the var "password" with the password to access to Neo4j
+ and the var "Basic" with the result of this command UNIX: 'echo -n neo4j:password | base64'
+ where password is the value to access to Neo4j
  */
+
+var password = 'root';
+var Basic = "bmVvNGo6cm9vdA=="
 
 var exports = module.exports = {};
 var request = require('request');
@@ -8,7 +17,7 @@ var request = require('request');
 var child_process = require('child_process');
 var localHostQuery =  child_process.fork('./runShellFile.js')
 var localHostPython = child_process.fork('./runPythonServer.js')
-var txUrl = "http://neo4j:ciao@localhost:7474/db/data/transaction/commit";
+var txUrl = "http://neo4j:' + password + '@localhost:7474/db/data/transaction/commit";
 
 exports.inside = function(point, perimeter) {
     // ray-casting algorithm based on
@@ -29,25 +38,23 @@ exports.inside = function(point, perimeter) {
 }
 
 exports.doDatabaseOperation = function (query, params) {
-    console.log('ciao')
+    //console.log('query', query)
+    //console.log('txtUrl', password)
     return new Promise(function (resolve, reject) {
         request.post({
                 uri:txUrl,
                 headers:{
-                    "Authorization": "Basic bmVvNGo6bmVvNGoy"
+                    "Authorization": "Basic " + Basic
                 },
                 json:{
-                    statements:[
-                        {
-                            statement:query,
-                            parameters:params
-                        }
-                    ]
+                    statements: query
                 }
             },
             function(err,res){
-                if(err)
+                if(err){
+                    console.log('ERROR', err)
                     reject(err)
+                }
                 else
                     resolve(res.body)
             })

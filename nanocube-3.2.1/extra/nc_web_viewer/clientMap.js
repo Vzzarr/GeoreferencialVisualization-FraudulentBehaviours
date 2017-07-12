@@ -14,12 +14,12 @@ function getUsers(polygon){
         success: function (data) {
             //createAGraph(data)
             //console.log('ciao')
-            prova(data)
+            openRightMenu(data)
         }
     })
     //console.log(window.location.hash);
 }
 
 function prova(info){
-    console.log('SONO DENTO INFO')
+    console.log('SONO DENTO INFO', info)
 }

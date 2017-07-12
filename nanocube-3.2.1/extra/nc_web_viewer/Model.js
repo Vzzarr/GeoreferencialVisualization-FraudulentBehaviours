@@ -293,7 +293,7 @@ Model.prototype.createMap = function(spvar,cm){
         <div zclass="w3-main" id="main">
          
         <div class="w3-teal">
-           <button class="w3-button w3-teal w3-xlarge w3-right" onclick="openRightMenu()">&#9776;</button>
+           <button class="w3-button w3-teal w3-xlarge w3-right" onclick="openRightMenu(' + null + ')">&#9776;</button>
 
         </div>
          
@@ -378,24 +378,57 @@ Model.prototype.nextColor=function(){
     return c;
 };
 
-
-function openRightMenu() {
+/*******************Nicholas********************************/
+function openRightMenu(data) {
     //document.getElementById("user").style.display = "none";
     document.getElementById("rightMenu").style.display = "block";
-    var cars = ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi"];
+    //var cars = ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi"];
     var text = "";
     var i;
-    for (i = 0; i < cars.length; i++) {
-        text += "<a class="+"w3-bar-item w3-button"+">"+cars[i] + "</a>";
+    if (data != null)
+        for (i = 0; i < data.length; i++)
+            text += '<a id="user' + i + '" onclick="addUser(' + i + ')" class="w3-bar-item w3-button">'+data[i] + '</a>';
+    else
+        text = ""
+document.getElementById("rightMenu").innerHTML = `<button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">Close &times;</button>
+<button onclick="queryNeo4j()" class="w3-bar-item w3-button w3-large">Send users to Neo4j</button>'` + text;
+}
+
+var displaySelectedUsers = []
+
+function addUser(user){
+    var cf = document.getElementById('user' + user).text;
+    if(!displaySelectedUsers.includes(cf) && displaySelectedUsers.length<20){
+        displaySelectedUsers.push(cf);
     }
-document.getElementById("rightMenu").innerHTML = '<button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">Close &times;</button>' + text;
+    console.log(displaySelectedUsers);
+}
+
+function queryNeo4j() {
+    var e = displaySelectedUsers
+    displaySelectedUsers = []
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:3000/queryNeo4j',
+        crossDomain: true,
+        dataType: 'jsonp',
+        data: {queryNeo4j:e},
+        success: function (data) {
+            //createAGraph(data)
+            console.log(data)
+        }
+    })
+    /*for(i = 0; i < displaySelectedUsers.length; i++){
+
+    }*/
+
 }
 
 function closeRightMenu() {
     //document.getElementById("user").style.display = "block";
     document.getElementById("rightMenu").style.display = "none";
 }
-
+/****************************************************/
 
 //Add Rectangles and polygons controls
 Model.prototype.addDraw = function(map,spvar){
