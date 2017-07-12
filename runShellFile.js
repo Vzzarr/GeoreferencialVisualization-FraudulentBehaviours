@@ -7,7 +7,7 @@ var exports = module.exports = {};
 
 process.on('message', function(m) {
 
-    child = child_process.exec('cd && cd nanocube-3.2.1/bin/ && cat ../data/'+m+'.dmp | ../bin/nanocube-leaf -q 29512 -f 10000', function (error, stdout, stderr) {
+    child = child_process.exec('cd '+__dirname+'/nanocube-3.2.1/bin/ && cat ../data/'+m+'.dmp | ../bin/nanocube-leaf -q 29512 -f 10000', function (error, stdout, stderr) {
         console.log('stdout: ' + stdout)
         console.log('stderr: ' + stderr)
         if (error !== null) {
@@ -17,8 +17,8 @@ process.on('message', function(m) {
     func(child.pid)
 })
 
-exports.func = function(input) {
-    process.send('Hello ' + input);
+func = function(input) {
+    process.send(input);
 }
 /*
 

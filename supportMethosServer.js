@@ -56,7 +56,7 @@ exports.doDatabaseOperation = function (query, params) {
 
 exports.avviaServerQuery = function(mes){
     localHostQuery.on('message', function(m) {
-        // Receive results from localHostQuery process
+        writePID(m)
         console.log('received: ' + m);
     })
 
@@ -65,7 +65,7 @@ exports.avviaServerQuery = function(mes){
 
 exports.avviaServerPython = function(){
     localHostPython.on('message', function(m) {
-        // Receive results from localHostQuery process
+        writePID(m)
         console.log('received: '+m);
     })
 
@@ -74,4 +74,14 @@ exports.avviaServerPython = function(){
 
 exports.pythonPID = function () {
     return localHostPython.func()
+}
+
+function writePID(pid){
+    var fs = require('fs')
+    var logger = fs.createWriteStream('log.txt', {
+        flags: 'a' // 'a' means appending (old data will be preserved)
+    })
+    console.log('Write ',pid)
+    logger.write(pid+'\n') // append string to your file
+    fs.close
 }
