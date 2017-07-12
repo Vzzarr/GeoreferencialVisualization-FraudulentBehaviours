@@ -59,7 +59,7 @@ app.get('/getUsers', function (req, res){
 
     var fs = require('fs'),
         path = require('path'),
-        filePath = path.join(__dirname, 'data/'+nameFile+'.csv');
+        filePath = path.join(__dirname, 'nanocube-3.2.1/data/'+nameFile+'.csv');
 
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
         var usersInsidePerimeter = []
@@ -79,7 +79,7 @@ app.get('/getUsers', function (req, res){
                 }
             }
             console.log(usersInsidePerimeter.length)
-            res.send(usersInsidePerimeter)
+            res.jsonp(usersInsidePerimeter)
         } else {
             console.log(err)
         }

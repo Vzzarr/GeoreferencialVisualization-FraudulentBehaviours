@@ -71,3 +71,7 @@ exports.avviaServerPython = function(){
 
     localHostPython.send('ciao')
 }
+
+exports.pythonPID = function () {
+    return localHostPython.func()
+}
