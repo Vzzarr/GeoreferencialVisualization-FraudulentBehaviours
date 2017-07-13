@@ -291,18 +291,14 @@ Model.prototype.createMap = function(spvar,cm){
         </div>
          
         <div zclass="w3-main" id="main">
-         
-        <div class="w3-teal">
-           <button class="w3-button w3-teal w3-xlarge w3-right" onclick="openRightMenu(' + null + ')">&#9776;</button>
 
-        </div>
          
         </div>`,
         classes : 'btn-group-vertical btn-group-sm',
         style   :
         {
             margin: '0px',
-            top: '110px',
+            top: '0px',
             padding: '0px 0 0 0',
             cursor: 'pointer',
         },
@@ -391,7 +387,7 @@ function openRightMenu(data) {
     else
         text = ""
 document.getElementById("rightMenu").innerHTML = `<button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">Close &times;</button>
-<button onclick="queryNeo4j()" class="w3-bar-item w3-button w3-large">Send users to Neo4j</button>'` + text;
+<button onclick="queryNeo4j()" class="w3-bar-item w3-button w3-large">Send users to Neo4j</button>` + text;
 }
 
 var displaySelectedUsers = []
@@ -415,6 +411,7 @@ function queryNeo4j() {
         data: {queryNeo4j:e},
         success: function (data) {
             //createAGraph(data)
+            visualizeNodes(data)
             console.log(data)
         }
     })
@@ -508,7 +505,7 @@ Model.prototype.drawCreated = function(e,spvar){
     //update the contraints
     var coords = e.layer.toGeoJSON().geometry.coordinates[0];
     coords = coords.map(function(e){ return L.latLng(e[1],e[0]);});
-	/*--------------------*/
+    /*--------------------*/
     var poly = [];
 
     for (i = 0; i < coords.length - 1; i++) {
@@ -520,7 +517,7 @@ Model.prototype.drawCreated = function(e,spvar){
 
     //alert(inside([1.5, 1.5], poly));
 
-	/*--------------------*/
+    /*--------------------*/
     coords.pop();
 
     var tilelist = genTileList(coords,
@@ -532,10 +529,18 @@ Model.prototype.drawCreated = function(e,spvar){
 
     //events for popups
     var that = this;
+    
+        //update polygon count before opening popup
+    that.updatePolygonCount(e.layer, spvar);
+    e.layer.openPopup();
+
     e.layer.on('mouseover', function(){
         //update polygon count before opening popup
         that.updatePolygonCount(e.layer, spvar);
         e.layer.openPopup();
+    });
+    e.layer.on('click', function(){
+        getUsers(poly);
     });
 
     e.layer.on('mouseout', function(){/*e.layer.closePopup();*/});
@@ -576,22 +581,45 @@ Model.prototype.updatePolygonCount = function(layer, spvar){
         bboxstr += "("+bbox[1][0].toFixed(3)+","+bbox[1][1].toFixed(3)+"))";
 
         layer.bindPopup(countstr+"<br />" +bboxstr + `<button onclick="visualizeNodes()" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" 
-		aria-expanded="false" aria-controls="collapseExample">Button with data-target</button>
-		<div class="collapse" id="collapseExample">
-		<div class="well"><div id="mynetwork"></div></div>
-		</div>`);
+        aria-expanded="false" aria-controls="collapseExample">Button with data-target</button>
+        <div class="collapse" id="collapseExample">
+        <div class="well"><div id="mynetwork"></div></div>
+        </div>`);
     });
 };
 
-function visualizeNodes(){
-	/*------------Nicholas-----------------*/
+function visualizeNodes(data){
+    /*------------Nicholas-----------------*/
     // create an array with nodes
-    var nodes = new vis.DataSet([
-        {id: 1, label: 'Node 1'},
+    console.log('GUARDAMI', data.results[0].data[0].row[1])
+    
+    var nodes = [], edges = []
+    for(var i=0; i<data.results.length;i++){
+
+        var idCentralNode = data.results[i].data[0].row[1]
+        nodes.push({id : idCentralNode, label : idCentralNode.substring(0,10)})
+
+        for(var j = 0; j<data.results[i].data.length; j++){
+
+            var borderNode = data.results[i].data[j].row[0][0]
+            nodes.push({id : borderNode+i+''+j, label : borderNode})
+            edges.push({from : idCentralNode, to : borderNode+i+''+j})
+
+        }
+    }
+
+    var graphNodes = new vis.DataSet(nodes)
+    var graphEdges = new vis.DataSet(edges)
+
+
+    /*var nodes = new vis.DataSet([
+        {id: 1, label: "062AECA7CA5A4EDE0023D1FCB2E101445C6AA6268E57172F"},
         {id: 2, label: 'Node 2'},
         {id: 3, label: 'Node 3'},
         {id: 4, label: 'Node 4'},
-        {id: 5, label: 'Node 5'}
+        {id: 5, label: 'Node 5'},
+        {id: 6, label: 'Node 6'},
+        {id: 7, label: 'Node 7'}
     ]);
 
     // create an array with edges
@@ -599,22 +627,23 @@ function visualizeNodes(){
         {from: 1, to: 3},
         {from: 1, to: 2},
         {from: 2, to: 4},
-        {from: 2, to: 5}
-    ]);
+        {from: 2, to: 5},
+        {from: 6, to: 7},
+    ]);*/
 
     // create a network
     var container = document.getElementById('mynetwork');
 
     // provide the data in the vis format
     var data = {
-        nodes: nodes,
-        edges: edges
+        nodes: graphNodes,
+        edges: graphEdges
     };
     var options = {};
 
     // initialize your network!
     var network = new vis.Network(container, data, options);
-	/*-----------------------------*/
+    /*-----------------------------*/
 }
 
 Model.prototype.drawDeleted = function(e,spvar){

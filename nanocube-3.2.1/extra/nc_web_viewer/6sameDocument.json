@@ -15,17 +15,17 @@
       ]
     }
   }, 
-  "tilesurl": "http://{s}.tile.osm.org/{z}/{x}/{y}.png", 
+"tilesurl": "http://{s}.tile.osm.org/{z}/{x}/{y}.png", 
   "heatmapmaxlevel": 25, 
   "div": {
     "info": {
       "opacity": 0.9, 
       "padding": 0, 
       "z-index": 1, 
-      "right": "1ch", 
+      "left": "0%", 
       "color": "white", 
       "position": "absolute", 
-      "top": "1em", 
+      "bottom": "10%", 
       "height": "1em"
     }, 
     "location": {
@@ -38,7 +38,7 @@
     }, 
     "user": {
       "opacity": 0.8, 
-      "right": "1ch", 
+      "left": "0%", 
       "logaxis": false, 
       "height": "5em", 
       "width": "45ch", 
@@ -47,7 +47,7 @@
       "margin-left": "15ch", 
       "position": "absolute", 
       "alpha_order": true, 
-      "top": "3em", 
+      "bottom": "0%", 
       "background-color": "#555"
     }
   }

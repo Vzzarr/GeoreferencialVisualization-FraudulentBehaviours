@@ -38,7 +38,7 @@ app.get('/queryNeo4j', function (req, res){
     console.log(req.query.queryNeo4j.length)
     var statements = [];
     for (var i = req.query.queryNeo4j.length-1; i >= 0; i--) {
-        statements.push({'statement':"match (c:Cliente)-[]-(e) where c.cf ='"+req.query.queryNeo4j[i]+ "' return  e"})
+        statements.push({'statement':"match (c:Cliente)-[]-(e) where c.cf ='"+req.query.queryNeo4j[i]+ "' return  labels(e), c.cf"})
     }
 
     //console.log(statements)
