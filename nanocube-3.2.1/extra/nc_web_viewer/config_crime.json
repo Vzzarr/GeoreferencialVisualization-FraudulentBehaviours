@@ -1,5 +1,5 @@
 {
-  "title": "DataSet_lat_lng.csv", 
+  "title": "DataSet_lat_lng_cf_pi_user.csv", 
   "url": "http://localhost:29512", 
   "latlonbox": {
     "max": {
@@ -35,6 +35,20 @@
       "float": "left", 
       "margin": 0, 
       "height": "100%"
+    }, 
+    "user": {
+      "opacity": 0.8, 
+      "right": "1ch", 
+      "logaxis": false, 
+      "height": "5em", 
+      "width": "45ch", 
+      "z-index": 1, 
+      "displaynumcat": 1, 
+      "margin-left": "15ch", 
+      "position": "absolute", 
+      "alpha_order": true, 
+      "top": "3em", 
+      "background-color": "#555"
     }
   }
 }
