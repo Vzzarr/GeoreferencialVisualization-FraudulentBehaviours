@@ -1,21 +1,11 @@
-function selectQuery(s) {
-    var value = s[s.selectedIndex].value
-    var id = s[s.selectedIndex].id
-    document.getElementById("description").innerHTML = "Descrizione: " + value;
-    var btn = document.createElement("BUTTON");
-    var t = document.createTextNode("Visualizza nella mappa")
-    btn.appendChild(t)
-    btn.addEventListener("click", function(){
-        callRunServersNanocubes(id);
-    }, false)
-    document.getElementById("description").appendChild(btn);
-}
-
 function callRunServersNanocubes(idQuery) {
+
+    console.log(idQuery.id)
+
     $.ajax({
         type: 'GET',
         url: 'http://localhost:3000/runServersNannocubes',
-        data: {id:idQuery},
+        data: {id:idQuery.id},
         success: function (data) {
             window.location.replace(data);
             console.log(data)
