@@ -12,14 +12,8 @@ function getUsers(polygon){
         crossDomain: true,
         dataType: 'jsonp',
         success: function (data) {
-            //createAGraph(data)
-            //console.log('ciao')
             openRightMenu(data)
         }
     })
-    //console.log(window.location.hash);
 }
 
-function prova(info){
-    console.log('SONO DENTO INFO', info)
-}

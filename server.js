@@ -2,7 +2,10 @@ var express = require('express')
 var app = express()
 var child_process = require('child_process')
 var supportMethods = require('./supportMethosServer.js')
+var StatsD = require('node-dogstatsd').StatsD;
+var dogstatsd = new StatsD();
 
+dogstatsd.increment('page.views')
 
 app.use( express.static( __dirname + '/client' ))
 
@@ -38,7 +41,7 @@ app.get('/queryNeo4j', function (req, res){
     console.log(req.query.queryNeo4j.length)
     var statements = [];
     for (var i = req.query.queryNeo4j.length-1; i >= 0; i--) {
-        statements.push({'statement':"match (c:Cliente)-[]-(e) where c.cf ='"+req.query.queryNeo4j[i]+ "' return  labels(e), c.cf"})
+        statements.push({'statement':"match (c:Cliente)-[]-(e) where c.cf ='"+req.query.queryNeo4j[i]+ "' return  labels(e), c.cf, ID(e)"})
     }
 
     //console.log(statements)

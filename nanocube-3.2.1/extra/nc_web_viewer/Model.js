@@ -372,9 +372,7 @@ Model.prototype.nextColor=function(){
 
 /*******************Nicholas********************************/
 function openRightMenu(data) {
-    //document.getElementById("user").style.display = "none";
     document.getElementById("rightMenu").style.display = "block";
-    //var cars = ["BMW", "Volvo", "Saab", "Ford", "Fiat", "Audi"];
     var text = "";
     var i;
     if (data != null)
@@ -387,17 +385,26 @@ document.getElementById("rightMenu").innerHTML = `<button onclick="closeRightMen
 }
 
 var displaySelectedUsers = []
+var usersId = []
 
 function addUser(user){
     var cf = document.getElementById('user' + user).text;
+
     if(!displaySelectedUsers.includes(cf) && displaySelectedUsers.length<20){
+        document.getElementById('user' + user).style.color = "#e03c3c";
         displaySelectedUsers.push(cf);
+        usersId.push(user);
     }
     console.log(displaySelectedUsers);
 }
 
 function queryNeo4j() {
+
     var e = displaySelectedUsers
+    for(i = 0; i < usersId.length; i++){
+        document.getElementById('user' + usersId[i]).style.color = "#38c"
+    }
+
     displaySelectedUsers = []
     $.ajax({
         type: 'GET',
@@ -411,10 +418,6 @@ function queryNeo4j() {
             console.log(data)
         }
     })
-    /*for(i = 0; i < displaySelectedUsers.length; i++){
-
-    }*/
-
 }
 
 function closeRightMenu() {
@@ -509,15 +512,10 @@ Model.prototype.drawCreated = function(e,spvar){
     }
 
     getUsers(poly);
-    //readTextFile("/opt/nanocube-3.2.1/data/mario.txt");
-
-    //alert(inside([1.5, 1.5], poly));
-
     /*--------------------*/
     coords.pop();
 
-    var tilelist = genTileList(coords,
-        Math.min(spvar.maxlevel,e.target._zoom+8));
+    var tilelist = genTileList(coords, Math.min(spvar.maxlevel,e.target._zoom+8));
     var color = e.layer.options.color;
 
     this.selcolors[e.layer._leaflet_id] = color;
@@ -526,7 +524,7 @@ Model.prototype.drawCreated = function(e,spvar){
     //events for popups
     var that = this;
     
-        //update polygon count before opening popup
+    //update polygon count before opening popup
     that.updatePolygonCount(e.layer, spvar);
     e.layer.openPopup();
 
@@ -535,6 +533,7 @@ Model.prototype.drawCreated = function(e,spvar){
         that.updatePolygonCount(e.layer, spvar);
         e.layer.openPopup();
     });
+
     e.layer.on('click', function(){
         getUsers(poly);
     });
@@ -587,7 +586,9 @@ Model.prototype.updatePolygonCount = function(layer, spvar){
 function visualizeNodes(data){
     /*------------Nicholas-----------------*/
     // create an array with nodes
-    console.log('GUARDAMI', data.results[0].data[0].row[1])
+    console.log('MARIO', data)
+
+    console.log('GUARDAMI', data.results[0].data[0].row[2])
     
     var nodes = [], edges = []
     for(var i=0; i<data.results.length;i++){
@@ -596,11 +597,16 @@ function visualizeNodes(data){
         nodes.push({id : idCentralNode, label : idCentralNode.substring(0,10)})
 
         for(var j = 0; j<data.results[i].data.length; j++){
-
-            var borderNode = data.results[i].data[j].row[0][0]
-            nodes.push({id : borderNode+i+''+j, label : borderNode})
-            edges.push({from : idCentralNode, to : borderNode+i+''+j})
-
+            var borderNode = data.results[i].data[j].row[0][0] + data.results[i].data[j].row[2]
+            var isPresent = false;
+            for (var k = 0; k < nodes.length; k++) {
+                if(nodes[k].id == borderNode)
+                    isPresent = true;
+            }
+            if (!isPresent) {
+                nodes.push({id : borderNode, label : borderNode})
+            }
+            edges.push({from : idCentralNode, to : borderNode})
         }
     }
 
