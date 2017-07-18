@@ -23,6 +23,10 @@ node server.js
 ```
 Infine con il proprio browser si raggiungerà l’indirizzo [localhost:3000](https://localhost:3000): si è pronti ad interagire col sistema.
 
+### Guida Interazione Sistema
+Una volta avviato, si può scegliere una query da visualizzare sulla pagina principale. Dopo di che si potrà visualizzare l'interfaccia di Nanocubes con la mappa e i relativi dati aggregati.
+È possibile selezionare un'area tramite gli strumenti presenti in alto a sinistra, messi a disposizione nativamente da Nanocubes. Una volta disegnata l'area di interesse, se si clicca su di essa comparirà in corrispondenza una nuvoletta con dei dati riassuntivi e il menu a destra contenente tutti gli utenti presenti nell'area selezionata. Si possono selezionare da qui gli utenti che si vogliono visualizzare sotto forma di grafo cliccandovi sopra; una volta che sono stati scelti, si potrà cliccare sul bottone "Send users to Neo4j" (è importante che la nuvoletta rimanga aperta in corrispondenza dell'area selezionata): nella nuvoletta compariranno gli utenti selezionati e i relativi nodi adiacenti, visualizzati sotto forma di grafo.
+
 ## Calcolo Clienti presenti all'interno del Poligono Disegnato
 Il retrieve dei clienti all'interno di un poligono, viene fatto nel momento in cui viene disegnato il poligono. In particolare all'interno del file nanocube-3.2.1/extra/nc_web_viewer/Model.js, nella funzione Model.prototype.drawCreated la variabile coords contiene le coordinate geografiche dei vertici del poligono appena disegnato (più il primo vertice ripetuto, pertanto all'interno della variabile poly ci siamo salvati i valori di coords tranne l'ultimo).
 A partire da questo viene richiamata la funzione getUsers() con parametro poly, che si occupa di fare una richiesta al nostro server.js scritto in Node; questo si occupa di fare il parsing del file .csv relativo alla visualizzazione dei dati correnti. Durante il parsing, tramite la funzione inside() presente in supportServerMethods.js controlla se l'utente in analisi si trova all'interno del poligono appena disegnato.

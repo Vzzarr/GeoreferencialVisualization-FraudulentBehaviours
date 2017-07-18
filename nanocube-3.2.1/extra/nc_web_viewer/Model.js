@@ -526,7 +526,6 @@ Model.prototype.drawCreated = function(e,spvar){
     }
     console.log("COORDINATE POLIGONO: ", poly);
 
-    getUsers(poly);
     /*--------------------*/
     coords.pop();
 
@@ -544,11 +543,11 @@ Model.prototype.drawCreated = function(e,spvar){
     e.layer.openPopup();
 
     e.layer.on('mouseover', function(){
-        //update polygon count before opening popup
 
     });
 
     e.layer.on('click', function(){
+        //update polygon count before opening popup
         that.updatePolygonCount(e.layer, spvar);
         e.layer.openPopup();
         getUsers(poly);
