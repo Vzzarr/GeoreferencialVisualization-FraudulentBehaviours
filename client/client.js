@@ -4,7 +4,7 @@ function callRunServersNanocubes(idQuery) {
 
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:3000/runServersNannocubes',
+        url: 'http://localhost:3000/runServersNanocubes',
         data: {id:idQuery.id},
         success: function (data) {
             window.location.replace(data);

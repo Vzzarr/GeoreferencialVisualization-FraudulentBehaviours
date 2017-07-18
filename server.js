@@ -13,7 +13,7 @@ app.get('/', function (req, res) {
 
 })
 
-app.get('/runServersNannocubes', function (req, res) {
+app.get('/runServersNanocubes', function (req, res) {
     var fs = require('fs')
     if (fs.existsSync(__dirname+'/pid_server_query')) {
         console.log('File exists')

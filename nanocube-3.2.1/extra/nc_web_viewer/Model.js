@@ -338,13 +338,12 @@ L.Map.addInitHook('addHandler', 'click', L.ClickHandler);
         console.log("MOVEEND")
     });
 
-    /* Event Handler On Click: getLatLng*/
-
+    /* Event Handler On Click: getLatLng
     map.on('click', function(e){
         var marker = new L.Marker(e.latlng);
         marker.bindPopup("<strong>" + e.latlng + "</strong>").addTo(map);
     });
-        
+    */
 
     var that = this;
     map.on('moveend', function(e){

@@ -14,7 +14,6 @@ var Basic = "bmVvNGo6cm9vdA=="
 var exports = module.exports = {};
 var request = require('request');
 
-var child_process = require('child_process');
 var localHostQuery =  require('./runServerQueryNanocubes.js');
 var localHostPython = require('./runWebServerNanocubes.js');
 var txUrl = "http://neo4j:' + password + '@localhost:7474/db/data/transaction/commit";
