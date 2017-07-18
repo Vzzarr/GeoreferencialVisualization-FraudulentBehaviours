@@ -44,4 +44,5 @@ Dalla lista di utenti mostrata nel menu laterale, è possibile selezionare diver
 MATCH (c:Cliente)-[]-(e) WHERE c.cf ='clienteCF' RETURN  labels(e), c.cf, ID(e)
 ```
 Il risultato di questa query a Neo4j verrà restituita al WebServer di Nanocubes dal server Node; ottenuti i risultati, il WebServer si occuperà di visualizzarli all'interno del Leaflet Popup, tramite la libreria [vis.js](http://visjs.org/).
-Questo risultato verrà mostrato sotto forma di grafo, in modo da poter osservare anche se ci sono delle ulteriori relazioni tra i diversi utenti.
+Questo risultato verrà mostrato sotto forma di grafo, in modo da poter osservare anche se ci sono delle ulteriori relazioni tra i diversi utenti, ottenendo un risultato analogo a quello riportato nell'immagine sottostante
+![alt text](https://github.com/Vzzarr/GeoreferencialVisualization-FraudulentBehaviours/blob/master/client/images/graph.png)
