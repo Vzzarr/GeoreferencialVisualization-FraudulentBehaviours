@@ -15,9 +15,9 @@ app.get('/', function (req, res) {
 
 app.get('/runServersNannocubes', function (req, res) {
     var fs = require('fs')
-    if (fs.existsSync(__dirname+'/guarda')) {
+    if (fs.existsSync(__dirname+'/pid_server_query')) {
         console.log('File exists')
-        var rows = fs.readFileSync('guarda').toString().split('\n');
+        var rows = fs.readFileSync('pid_server_query').toString().split('\n');
         fs.close
         console.log(rows[0])
         if(require('is-running')(parseInt(rows[0]))){

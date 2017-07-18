@@ -15,8 +15,8 @@ var exports = module.exports = {};
 var request = require('request');
 
 var child_process = require('child_process');
-var localHostQuery =  require('./runShellFile.js');
-var localHostPython = require('./runPythonServer.js');
+var localHostQuery =  require('./runServerQueryNanocubes.js');
+var localHostPython = require('./runWebServerNanocubes.js');
 var txUrl = "http://neo4j:' + password + '@localhost:7474/db/data/transaction/commit";
 
 exports.inside = function(point, perimeter) {
@@ -65,7 +65,7 @@ exports.runQueryServer = function(mes){
     setTimeout(function(){lsof.rawTcpPort(29512, function(data){
         console.log(data)
         var fs = require('fs')
-        fs.writeFileSync('guarda', data[data.length-1].pid)
+        fs.writeFileSync('pid_server_query', data[data.length-1].pid)
         fs.close
         })}, 50)
 }
