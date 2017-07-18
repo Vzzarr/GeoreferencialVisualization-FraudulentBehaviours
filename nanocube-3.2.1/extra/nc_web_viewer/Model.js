@@ -270,6 +270,7 @@ Model.prototype.createMap = function(spvar,cm){
         maxZoom: Math.min(18,spvar.maxlevel+1)
     });
 
+
     var maptile = L.tileLayer(this.options.tilesurl,{
         noWrap:true,
         opacity:0.4 });
@@ -322,6 +323,9 @@ Model.prototype.createMap = function(spvar,cm){
         }
     });
 
+ 
+L.Map.addInitHook('addHandler', 'click', L.ClickHandler);
+
     var that = this;
     map.on('moveend', function(e){
         var b = map.getBounds();
@@ -331,7 +335,16 @@ Model.prototype.createMap = function(spvar,cm){
         spvar.setCurrentView(tilelist);
         that.redraw(spvar);
         that.updateInfo();
+        console.log("MOVEEND")
     });
+
+    /* Event Handler On Click: getLatLng
+    map.on('click', function(e){
+        var marker = new L.Marker(e.latlng);
+        marker.bindPopup("<strong>" + e.latlng + "</strong>").addTo(map);
+    });
+    */
+    
 
     var that = this;
     map.on('moveend', function(e){
