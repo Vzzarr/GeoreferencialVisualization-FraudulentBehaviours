@@ -341,6 +341,7 @@ L.Map.addInitHook('addHandler', 'click', L.ClickHandler);
     /* Event Handler On Click: getLatLng
     map.on('click', function(e){
         var marker = new L.Marker(e.latlng);
+        console.log("COORDINATE PUNTO: ", e.latlng)
         marker.bindPopup("<strong>" + e.latlng + "</strong>").addTo(map);
     });
     */
@@ -393,7 +394,8 @@ function openRightMenu(data) {
     else
         text = ""
 document.getElementById("rightMenu").innerHTML = `<button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">Close &times;</button>
-<button onclick="queryNeo4j()" class="w3-bar-item w3-button w3-large">Send users to Neo4j</button>` + text;
+<button onclick="queryNeo4j();visualizeNodes();" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" 
+        aria-expanded="false" aria-controls="collapseExample">Send users to Neo4j</button>` + text;
 }
 
 var displaySelectedUsers = []
@@ -522,6 +524,7 @@ Model.prototype.drawCreated = function(e,spvar){
     for (i = 0; i < coords.length - 1; i++) {
         poly.push([coords[i].lat,coords[i].lng]);
     }
+    console.log("COORDINATE POLIGONO: ", poly);
 
     getUsers(poly);
     /*--------------------*/
@@ -542,11 +545,12 @@ Model.prototype.drawCreated = function(e,spvar){
 
     e.layer.on('mouseover', function(){
         //update polygon count before opening popup
-        that.updatePolygonCount(e.layer, spvar);
-        e.layer.openPopup();
+
     });
 
     e.layer.on('click', function(){
+        that.updatePolygonCount(e.layer, spvar);
+        e.layer.openPopup();
         getUsers(poly);
     });
 
@@ -587,8 +591,7 @@ Model.prototype.updatePolygonCount = function(layer, spvar){
         bboxstr += "(("+bbox[0][0].toFixed(3)+","+bbox[0][1].toFixed(3)+"),";
         bboxstr += "("+bbox[1][0].toFixed(3)+","+bbox[1][1].toFixed(3)+"))";
 
-        layer.bindPopup(countstr+"<br />" +bboxstr + `<button onclick="visualizeNodes()" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" 
-        aria-expanded="false" aria-controls="collapseExample">Button with data-target</button>
+        layer.bindPopup(countstr+"<br />" +bboxstr + `
         <div class="collapse" id="collapseExample">
         <div class="well"><div id="mynetwork"></div></div>
         </div>`);
