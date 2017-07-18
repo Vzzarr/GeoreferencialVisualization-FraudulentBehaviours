@@ -15,7 +15,7 @@ cd $NEO4J_SRC/bin && ./neo4j console
 ``` 
 Dovrà poi essere modificato il file "supportServerMethods.js" cambiando le variabili "password" e "Basic", adattandole alle credenziali di accesso al proprio DB Neo4j. In particolare la variabile Basic può essere ottenuta a partire dalla propria password tramite il comando
 ```sh
-'echo -n neo4j:password | base64'
+echo -n neo4j:password | base64
 ```
 In seguito con un terminale, posizionandosi nella root del progetto, bisognerà eseguire il comando 
 ```sh
@@ -35,10 +35,13 @@ map.on('click', function(e){
     marker.bindPopup("<strong>" + e.latlng + "</strong>").addTo(map);
 });
 ```
-## Gestione Contestuale delle query a Neo4j a partire dal Menù Laterale a destra
+## Gestione Contestuale delle query a Neo4j a partire dal Menu Laterale a destra
+Per la creazione del menu laterale a destra viene fatta una richiesta direttamente dal metodo getUsers() (di cui si parlava nel paragrafo precedente) il quale fa la richiesta direttamente al server il quale parsa il file .csv (come spiegato precedentemente) e ottenuti gli utenti che risiedono all'interno del poligono disegnato, richiama la funzione openRightMenu() con parametro gli utenti appena recuperati. Questi verranno quindi visualizzati all'interno di un menu contestuale sulla parte destra della mappa.
 
 ## Visualizzazione del Grafo di Risposta da Neo4j
-
-
-
-### Prova
+Dalla lista di utenti mostrata nel menu laterale, è possibile selezionare diversi utenti che verranno passati come parametro ad un'ulteriore richiesta che verrà fatta al nostro server node, il quale si occuperà di interrogare il DB di Neo4j: in particolare ci facciamo restituire tutti i nodi adiacenti a ciascun utente, attraverso questa query:
+```
+MATCH (c:Cliente)-[]-(e) WHERE c.cf ='clienteCF' RETURN  labels(e), c.cf, ID(e)
+```
+Il risultato di questa query a Neo4j verrà restituita al WebServer di Nanocubes dal server Node; ottenuti i risultati, il WebServer si occuperà di visualizzarli all'interno del Leaflet Popup, tramite la libreria [vis.js](http://visjs.org/).
+Questo risultato verrà mostrato sotto forma di grafo, in modo da poter osservare anche se ci sono delle ulteriori relazioni tra i diversi utenti.
