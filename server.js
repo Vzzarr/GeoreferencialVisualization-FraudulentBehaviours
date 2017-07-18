@@ -32,11 +32,19 @@ app.get('/runServersNannocubes', function (req, res) {
 
 app.get('/queryNeo4j', function (req, res){
 
-    var promise = supportMethods.doDatabaseOperation(req.query.queryNeo4j);
+    console.log(req.query.queryNeo4j.length)
+    var statements = [];
+    for (var i = req.query.queryNeo4j.length-1; i >= 0; i--) {
+        statements.push({'statement':"match (c:Cliente)-[]-(e) where c.cf ='"+req.query.queryNeo4j[i]+ "' return  labels(e), c.cf, ID(e)"})
+    }
+
+    //console.log(statements)
+    var promise = supportMethods.doDatabaseOperation(statements);
     promise.then(function (data) {
-        res.send(data)
+        res.jsonp(data)
     })
 })
+
 
 app.get('/getUsers', function (req, res){
 
@@ -56,7 +64,7 @@ app.get('/getUsers', function (req, res){
 
     var fs = require('fs'),
         path = require('path'),
-        filePath = path.join(__dirname, 'data/'+nameFile+'.csv');
+        filePath = path.join(__dirname, 'nanocube-3.2.1/data/'+nameFile+'.csv');
 
     fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
         var usersInsidePerimeter = []

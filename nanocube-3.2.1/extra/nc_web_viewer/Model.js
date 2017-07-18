@@ -586,9 +586,7 @@ Model.prototype.updatePolygonCount = function(layer, spvar){
 function visualizeNodes(data){
     /*------------Nicholas-----------------*/
     // create an array with nodes
-    console.log('MARIO', data)
-
-    console.log('GUARDAMI', data.results[0].data[0].row[2])
+    console.log('NodeId', data.results[0].data[0].row[2])
     
     var nodes = [], edges = []
     for(var i=0; i<data.results.length;i++){
