@@ -8,16 +8,20 @@ Le dipendenze per permettere al sistema di avviarsi sono le librerie Node di Jav
 sudo apt-get install nodejs-legacy
 sudo apt-get install libboost-all-dev
 ``` 
-Quindi andrà avviato il proprio DB di Neo4j, avviabile tramite
+Andrà modificato il file $NEO4J_SRC/conf/neo4j.conf mettendo il file neo4j.conf riportato all'interno di questa repository.
+Quindi andrà avviato il proprio DB di Neo4j tramite
 ```sh
 cd $NEO4J_SRC/bin && ./neo4j console
 ``` 
-dovrà poi essere modificato il file "supportServerMethods.js" cambiando le variabili "password" e "Basic", adattandole alle credenziali di accesso al proprio DB Neo4j.
+Dovrà poi essere modificato il file "supportServerMethods.js" cambiando le variabili "password" e "Basic", adattandole alle credenziali di accesso al proprio DB Neo4j. In particolare la variabile Basic può essere ottenuta a partire dalla propria password tramite il comando
+```sh
+'echo -n neo4j:password | base64'
+```
 In seguito con un terminale, posizionandosi nella root del progetto, bisognerà eseguire il comando 
 ```sh
 node server.js
 ```
-e infine con il proprio browser si raggiungerà l’indirizzo [localhost:3000](https://localhost:3000): si è pronti ad interagire col sistema.
+Infine con il proprio browser si raggiungerà l’indirizzo [localhost:3000](https://localhost:3000): si è pronti ad interagire col sistema.
 
 ## Calcolo Clienti presenti all'interno del Poligono Disegnato
 Il retrieve dei clienti all'interno di un poligono, viene fatto nel momento in cui viene disegnato il poligono
