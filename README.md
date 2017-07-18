@@ -12,7 +12,7 @@ Quindi andrà avviato il proprio DB di Neo4j, avviabile tramite
 ```sh
 cd $NEO4J_SRC/bin && ./neo4j console
 ``` 
-dovrà poi essere modificato il file "supportMethosServer.js" cambiando le variabili "password" e "Basic", adattandole alle credenziali di accesso al proprio DB Neo4j. 
+dovrà poi essere modificato il file "supportServerMethods.js" cambiando le variabili "password" e "Basic", adattandole alle credenziali di accesso al proprio DB Neo4j.
 In seguito con un terminale, posizionandosi nella root del progetto, bisognerà eseguire il comando 
 ```sh
 node server.js
